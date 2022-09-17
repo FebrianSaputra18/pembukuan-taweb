@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\KaryawanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
     return view('home');
 });
 
+Route::middleware(['auth', 'role:admin|sales|supplier'])->get('/dashboard', function(){});
 Route::get('/sales', function () {
     return view('sales');
 });
@@ -24,6 +27,8 @@ Route::get('/sales', function () {
 Route::get('/supplier', function () {
     return view('supplier');
 });
+
+// Route::middleware(['auth', 'role:admin'])->resource('admin', KaryawanController::class);
 
 Route::get('/admin', function () {
     return view('admin');
